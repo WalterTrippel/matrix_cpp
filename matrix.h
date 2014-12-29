@@ -7,6 +7,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <vector>
 
 class Matrix
 {
@@ -16,6 +17,7 @@ private:
     size_t size_m = 2;
 public:
     Matrix();
+    Matrix(std::initializer_list<double> list);
     Matrix(unsigned rows, unsigned colomns);
     Matrix(double **p);
     Matrix(const Matrix & matrix);

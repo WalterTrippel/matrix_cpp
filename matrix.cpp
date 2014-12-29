@@ -9,6 +9,27 @@ Matrix::Matrix()
     }
 }
 
+
+/**
+    First two digitals form array dimension; others form its contents
+*/
+Matrix::Matrix(std::initializer_list<double> list)
+{
+    this->size_n = (unsigned)(*(list.begin()));
+    this->p = new double*[size_n];
+
+    this->size_m = (unsigned)(*(list.begin() + 1));
+    for(unsigned k = 0; k < size_n; ++k)
+    {
+        this->p[k] = new double[size_m];
+    }
+    for(unsigned k = 0; k < size_n; ++k)
+    {
+        std::copy(list.begin() + (k * size_m) + 2, list.end(), &this->p[k][0]);
+    }
+    //std::copy(list.begin() + 2, list.end(), &this->p[0][0]);
+}
+
 Matrix::Matrix(unsigned rows, unsigned colomns)
 {
     this->size_n = rows;
@@ -28,7 +49,7 @@ Matrix::Matrix(double **p)
         this->p[i] = new double[size_m];
     }
 
-    std::copy(&p[0][0], &p[0][0] + size_n * size_m + 1, &this->p[0][0]);
+    std::copy(&p[0][0], &p[0][0] + size_n * size_m + 2, &this->p[0][0]);
 }
 
 Matrix::Matrix(const Matrix &matrix)
@@ -41,7 +62,7 @@ Matrix::Matrix(const Matrix &matrix)
         this->p[i] = new double[size_m];
     }
 
-    std::copy(&matrix.p[0][0], &matrix.p[0][0] + size_n * size_m + 1, &this->p[0][0]);
+    std::copy(&matrix.p[0][0], &matrix.p[0][0] + size_n * size_m + 2, &this->p[0][0]);
 }
 
 Matrix::Matrix(Matrix &&other):p(other.p)
