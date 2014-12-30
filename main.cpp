@@ -11,8 +11,9 @@ int main()
     }
     Matrix a(3, 3, p);
     cin >> a;
-    Matrix b(a);
-    cout << a << b;
+    cout << a;
+    Matrix b = std::move(a);
+    cout << b;
     return 0;
 }
 

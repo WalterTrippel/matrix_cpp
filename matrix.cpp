@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-Matrix::Matrix():size_n(2), size_m(2)
+Matrix::Matrix():size_n(2), size_m(2), p(nullptr)
 {
     this->p = new double*[size_n];
     for(unsigned i = 0; i < size_n; ++i)
@@ -47,8 +47,14 @@ Matrix::Matrix(const Matrix &matrix):Matrix(matrix.size_n, matrix.size_m)
     std::copy(&matrix.p[0][0], &matrix.p[0][0] + size_n * size_m + 2, &this->p[0][0]);
 }
 
-Matrix::Matrix(Matrix &&other):p(other.p)
+Matrix::Matrix(Matrix &&other):size_n(0), size_m(0), p(nullptr)
 {
+    size_n = other.size_n;
+    size_m = other.size_m;
+    p = other.p;
+
+    other.size_n = 0;
+    other.size_m = 0;
     other.p = nullptr;
 }
 
