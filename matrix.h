@@ -13,13 +13,13 @@ class Matrix
 {
 private:
     double **p;
-    size_t size_n = 2;
-    size_t size_m = 2;
+    size_t size_n;
+    size_t size_m;
 public:
     Matrix();
     Matrix(std::initializer_list<double> list);
     Matrix(unsigned rows, unsigned colomns);
-    Matrix(double **p);
+    Matrix(unsigned rows, unsigned colomns, double **p);
     Matrix(const Matrix & matrix);
     Matrix(Matrix && other);
     ~Matrix();

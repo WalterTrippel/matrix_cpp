@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-Matrix::Matrix()
+Matrix::Matrix():size_n(2), size_m(2)
 {
     this->p = new double*[size_n];
     for(unsigned i = 0; i < size_n; ++i)
@@ -8,7 +8,6 @@ Matrix::Matrix()
         this->p[i] = new double[size_m];
     }
 }
-
 
 /**
     First two digitals form array dimension; others form its contents
@@ -27,13 +26,10 @@ Matrix::Matrix(std::initializer_list<double> list)
     {
         std::copy(list.begin() + (k * size_m) + 2, list.end(), &this->p[k][0]);
     }
-    //std::copy(list.begin() + 2, list.end(), &this->p[0][0]);
 }
 
-Matrix::Matrix(unsigned rows, unsigned colomns)
+Matrix::Matrix(unsigned rows, unsigned colomns):size_n(rows), size_m(colomns)
 {
-    this->size_n = rows;
-    this->size_m = colomns;
     this->p = new double*[size_n];
     for(unsigned i = 0; i < size_n; ++i)
     {
@@ -41,27 +37,13 @@ Matrix::Matrix(unsigned rows, unsigned colomns)
     }
 }
 
-Matrix::Matrix(double **p)
+Matrix::Matrix(unsigned rows, unsigned colomns, double **p):size_n(rows), size_m(colomns), p(p)
 {
-    this->p = new double*[size_n];
-    for(unsigned i = 0; i < size_n; ++i)
-    {
-        this->p[i] = new double[size_m];
-    }
-
     std::copy(&p[0][0], &p[0][0] + size_n * size_m + 2, &this->p[0][0]);
 }
 
-Matrix::Matrix(const Matrix &matrix)
+Matrix::Matrix(const Matrix &matrix):Matrix(matrix.size_n, matrix.size_m)
 {
-    this->size_n = matrix.size_n;
-    this->size_m = matrix.size_m;
-    this->p = new double*[size_n];
-    for(unsigned i = 0; i < size_n; ++i)
-    {
-        this->p[i] = new double[size_m];
-    }
-
     std::copy(&matrix.p[0][0], &matrix.p[0][0] + size_n * size_m + 2, &this->p[0][0]);
 }
 
